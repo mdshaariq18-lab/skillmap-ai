@@ -1,67 +1,27 @@
-/* Background */
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: white;
+  font-family: Arial;
   text-align: center;
-  padding: 40px;
-  margin: 0;
+  padding: 50px;
+  background-color: #f4f4f4;
 }
 
-/* Main container (card look) */
-.container {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 30px;
-  border-radius: 15px;
-  width: 350px;
-  margin: auto;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  backdrop-filter: blur(10px);
-}
-
-/* Title */
 h1 {
-  margin-bottom: 5px;
-  font-size: 32px;
+  color: #333;
 }
 
-p {
-  color: #cfd8dc;
-  margin-bottom: 20px;
-}
-
-/* Inputs */
-input, select {
-  width: 100%;
+input, select, button {
   padding: 10px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: none;
+  margin: 10px;
+  width: 250px;
 }
 
-/* Button */
 button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  background: linear-gradient(90deg, #00c6ff, #0072ff);
-  border: none;
-  border-radius: 8px;
+  background-color: #007BFF;
   color: white;
-  font-size: 16px;
+  border: none;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, #0072ff, #00c6ff);
-}
-
-/* Result box */
-#result {
-  margin-top: 20px;
-  background: rgba(0,0,0,0.3);
-  padding: 15px;
-  border-radius: 10px;
+  background-color: #0056b3;
 }
