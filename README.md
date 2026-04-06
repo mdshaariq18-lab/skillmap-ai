@@ -20,7 +20,7 @@ SkillMap AI is a simple web-based tool that analyzes user skills and compares th
 4. Displays match score and missing skills
 
 ## 🌐 Live Demo
-https://your-netlify-link.netlify.app
+https://69d3fcec608722b5156f89b6--flourishing-cheesecake-545400.netlify.app/
 
 ## 🚀 Future Scope
 - NLP-based resume parsing
