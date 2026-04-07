@@ -6,25 +6,26 @@
 </head>
 <body>
 
-<h1>SkillMap AI</h1>
-<p>From Resume to Roadmap</p>
+<div class="container">
 
-<label>Select Role:</label>
-<select id="role">
-  <option>Data Scientist</option>
-  <option>Web Developer</option>
-</select>
+  <h1>🔷 SkillMap AI</h1>
+  <p>From Resume to Roadmap 🚀</p>
 
-<br><br>
+  <label>Select Role:</label>
+  <select id="role">
+    <option>Data Scientist</option>
+    <option>Web Developer</option>
+  </select>
 
-<label>Enter Your Skills (comma separated):</label><br>
-<input type="text" id="skills" placeholder="Python, SQL">
+  <label>Enter Your Skills:</label>
+  <input type="text" id="skills" placeholder="Python, SQL">
 
-<br><br>
+  <button onclick="analyze()">Analyze</button>
+  <button onclick="startQuiz()">Take Quick Quiz 🎯</button>
 
-<button onclick="analyze()">Analyze</button>
+  <div id="result"></div>
 
-<h2 id="result"></h2>
+</div>
 
 <script src="script.js"></script>
 
