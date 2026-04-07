@@ -1,34 +1,19 @@
 # SkillMap AI 🚀
 
-SkillMap AI is an intelligent web application that analyzes user skills and provides a personalized career roadmap.
+AI-based Resume Analyzer & Career Advisor
 
-## 🔥 Features
-- Skill matching & scoring
-- Missing skill detection
-- Course recommendations
-- Career roadmap generation
-- AI insights & recommendations
-- Interactive quiz system
-- Career Simulation Engine (unique feature)
+## Features
+- Skill Gap Analysis
+- ATS Score Simulation
+- Experience-based insights
+- Resume improvement suggestions
+- Interview questions generator
+- Salary insights
+- Graph visualization
 
-## ⚙️ Tech Stack
-- HTML
-- CSS
-- JavaScript
+## Tech Stack
+- HTML, CSS, JavaScript
+- Chart.js
 
-## 🌐 Live Demo
-(Add your Netlify link here)
-
-## 🧠 How It Works
-1. User selects a role
-2. Inputs skills
-3. System compares with industry dataset
-4. Generates score, roadmap, and insights
-
-## 🚀 Future Scope
-- Resume upload (PDF parsing using NLP)
-- Real-time job data integration
-- AI-based interview preparation
-
-## 💡 Innovation
-Unlike traditional platforms, SkillMap AI not only evaluates but guides users with actionable steps and predicts career readiness.
+## Live Demo
+(Add your Vercel link)
