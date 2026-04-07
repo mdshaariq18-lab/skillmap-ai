@@ -10,10 +10,14 @@ const courses = {
   "react": "https://react.dev/learn"
 };
 
-// 🚀 Main Function
+// 🚀 MAIN FUNCTION
 function analyze() {
+
   let role = document.getElementById("role").value;
-  let userSkills = document.getElementById("skills").value.toLowerCase().split(",");
+  let userSkills = document.getElementById("skills").value
+                      .toLowerCase()
+                      .split(",")
+                      .map(skill => skill.trim());
 
   let roles = {
     "Data Scientist": ["python","sql","machine learning","statistics"],
@@ -21,12 +25,13 @@ function analyze() {
   };
 
   let required = roles[role];
+
   let match = 0;
   let missing = [];
   let matchedSkills = [];
 
   required.forEach(skill => {
-    if (userSkills.includes(skill.trim())) {
+    if (userSkills.includes(skill)) {
       match++;
       matchedSkills.push(skill);
     } else {
@@ -35,14 +40,24 @@ function analyze() {
   });
 
   let score = (match / required.length) * 100;
-  let level = score < 40 ? "Beginner" : score < 75 ? "Intermediate" : "Advanced";
-  let confidence = (score + Math.random()*10).toFixed(0);
 
-  let suggestions = missing.map(skill => {
-    let link = courses[skill] || "#";
-    return `<a href="${link}" target="_blank">📘 Learn ${skill}</a>`;
-  }).join("<br>");
+  // 🎯 LEVEL
+  let level = score < 40 ? "Beginner" :
+              score < 75 ? "Intermediate" :
+              "Advanced";
 
+  // 🤖 CONFIDENCE SCORE
+  let confidence = Math.min(100, (score + Math.random() * 10)).toFixed(0);
+
+  // 📚 COURSE LINKS
+  let suggestions = missing.length
+    ? missing.map(skill => {
+        let link = courses[skill] || "#";
+        return `<a href="${link}" target="_blank">📘 Learn ${skill}</a>`;
+      }).join("<br>")
+    : "🎉 No missing skills! Great job!";
+
+  // 🧭 ROADMAP
   let roadmap = role === "Data Scientist" ? `
     Month 1-2: Python & Data Analysis<br>
     Month 3-4: Machine Learning<br>
@@ -53,44 +68,91 @@ function analyze() {
     Month 5-6: Build Portfolio
   `;
 
+  // 💡 AI INSIGHT
   let insight = score < 40
-    ? "Focus on fundamentals first."
+    ? "You are at an early stage. Focus on strong fundamentals."
     : score < 75
-    ? "You're close! Improve missing skills."
-    : "You're job-ready! Start applying.";
+    ? "You are close to job-ready. Improve missing skills."
+    : "You are job-ready! Start applying confidently.";
 
+  // 🎯 ROLE RECOMMENDATION
   let recommendation = score < 40
-    ? "Start with beginner-level roles or internships."
+    ? "Start with internships or beginner roles."
     : score < 75
-    ? "Apply for junior roles after improvement."
-    : "Apply confidently for full-time roles.";
+    ? "Apply for junior roles after improving skills."
+    : "Apply for full-time roles confidently.";
 
+  // 🚀 CAREER SIMULATION (UNIQUE FEATURE)
   let simulation = `
-    If you complete the roadmap, you can become a ${role} in approximately 
-    ${score < 40 ? "6-8 months" : score < 75 ? "3-6 months" : "1-2 months"}.
+    Based on your current progress, you can become a <strong>${role}</strong> in 
+    <strong>${
+      score < 40 ? "6–8 months" :
+      score < 75 ? "3–6 months" :
+      "1–2 months"
+    }</strong> with consistent effort.
   `;
 
-  document.getElementById("result").innerHTML = `
+  // 🧾 OUTPUT
+  let resultBox = document.getElementById("result");
+
+  resultBox.innerHTML = `
     <h3>Match Score: ${score.toFixed(0)}%</h3>
+
     <div class="progress-bar">
       <div class="progress" style="width:${score}%"></div>
     </div>
+
     <p><strong>Level:</strong> ${level}</p>
-    <p><strong>Confidence:</strong> ${confidence}%</p>
-    <p><strong>Matched Skills:</strong><br>${matchedSkills.join(", ")}</p>
-    <p><strong>Missing Skills:</strong><br>${missing.join(", ")}</p>
-    <p><strong>📚 Learn:</strong><br>${suggestions}</p>
-    <p><strong>🧭 Roadmap:</strong><br>${roadmap}</p>
-    <p><strong>💡 Insight:</strong><br>${insight}</p>
+    <p><strong>Confidence Score:</strong> ${confidence}%</p>
+
+    <p><strong>Matched Skills:</strong><br>${matchedSkills.join(", ") || "None"}</p>
+
+    <p><strong>Missing Skills:</strong><br>${missing.join(", ") || "None"}</p>
+
+    <p><strong>📚 Learn These Skills:</strong><br>${suggestions}</p>
+
+    <p><strong>🧭 Career Roadmap:</strong><br>${roadmap}</p>
+
+    <p><strong>💡 AI Insight:</strong><br>${insight}</p>
+
     <p><strong>🎯 Recommendation:</strong><br>${recommendation}</p>
+
     <p><strong>🚀 Career Simulation:</strong><br>${simulation}</p>
   `;
 
-  renderChart(matchedSkills, missing);
+  // 🎨 ANIMATION TRIGGER
+  resultBox.classList.remove("slide-up");
+  void resultBox.offsetWidth; // reset animation
+  resultBox.classList.add("slide-up");
 }
 
-// 🎯 Quiz FeatureHere’s the **full upgraded codebase** for your SkillMap AI project, file by file. You can copy each into its respective file in your project folder.
+// 🎯 QUIZ FUNCTION (UPGRADED)
+function startQuiz() {
 
----
+  let questions = [
+    {
+      q: "Which language is mainly used for Data Science?",
+      options: ["HTML", "Python", "CSS"],
+      answer: "python"
+    },
+    {
+      q: "Which is used for styling web pages?",
+      options: ["CSS", "Python", "SQL"],
+      answer: "css"
+    }
+  ];
 
-## 📂 Project Structure
+  let randomQ = questions[Math.floor(Math.random() * questions.length)];
+
+  let userAnswer = prompt(
+    randomQ.q + "\nOptions: " + randomQ.options.join(", ")
+  );
+
+  if (!userAnswer) return;
+
+  if (userAnswer.toLowerCase() === randomQ.answer) {
+    alert("🎉 Correct! You're on the right track!");
+  } else {
+    alert("❌ Not quite. Keep learning—you’ll get there!");
+  }
+}
