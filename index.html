@@ -1,38 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>SkillMap AI 🚀</title>
+  <title>SkillMap AI</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="animations.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="animations.css"> <!-- NEW -->
 </head>
+
 <body>
 
 <div class="container fade-in">
-  <img src="logo.png" alt="SkillMap AI Logo" style="width:80px; margin-bottom:10px;">
-  <h1>🔷 SkillMap AI</h1>
-  <p>From Resume to Roadmap 🚀</p>
+
+  <h1 class="slide-up">🔷 SkillMap AI</h1>
+  <p class="slide-up">From Resume to Roadmap 🚀</p>
 
   <label>Select Role:</label>
-  <select id="role">
+  <select id="role" class="slide-up">
     <option>Data Scientist</option>
     <option>Web Developer</option>
   </select>
 
   <label>Enter Your Skills:</label>
-  <input type="text" id="skills" placeholder="Python, SQL">
+  <input type="text" id="skills" placeholder="Python, SQL" class="slide-up">
 
-  <button onclick="analyze()">Analyze</button>
-  <button onclick="startQuiz()">Take Quick Quiz 🎯</button>
-  <button onclick="toggleTheme()">Toggle Theme 🌗</button>
+  <button class="pulse glow" onclick="analyze()">Analyze</button>
+  <button class="pulse" onclick="startQuiz()">Take Quick Quiz 🎯</button>
 
-  <div id="result"></div>
-  <div id="insightBox"></div>
-  <canvas id="skillChart"></canvas>
+  <div id="result" class="fade-in"></div>
+
 </div>
 
 <script src="script.js"></script>
-<script src="insights.js"></script>
+
 </body>
 </html>
