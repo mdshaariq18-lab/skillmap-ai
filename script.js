@@ -1,4 +1,3 @@
-// 📚 Course Links
 const courses = {
   "python": "https://www.coursera.org/learn/python",
   "sql": "https://www.w3schools.com/sql/",
@@ -10,149 +9,90 @@ const courses = {
   "react": "https://react.dev/learn"
 };
 
-// 🚀 MAIN FUNCTION
+let chart;
+
 function analyze() {
 
-  let role = document.getElementById("role").value;
-  let userSkills = document.getElementById("skills").value
-                      .toLowerCase()
-                      .split(",")
-                      .map(skill => skill.trim());
+  document.getElementById("loading").classList.remove("hidden");
 
-  let roles = {
-    "Data Scientist": ["python","sql","machine learning","statistics"],
-    "Web Developer": ["html","css","javascript","react"]
-  };
+  setTimeout(() => {
 
-  let required = roles[role];
+    document.getElementById("loading").classList.add("hidden");
 
-  let match = 0;
-  let missing = [];
-  let matchedSkills = [];
+    let role = document.getElementById("role").value;
+    let userSkills = document.getElementById("skills").value.toLowerCase().split(",").map(s => s.trim());
 
-  required.forEach(skill => {
-    if (userSkills.includes(skill)) {
-      match++;
-      matchedSkills.push(skill);
-    } else {
-      missing.push(skill);
-    }
-  });
+    let roles = {
+      "Data Scientist": ["python","sql","machine learning","statistics"],
+      "Web Developer": ["html","css","javascript","react"]
+    };
 
-  let score = (match / required.length) * 100;
+    let required = roles[role];
 
-  // 🎯 LEVEL
-  let level = score < 40 ? "Beginner" :
-              score < 75 ? "Intermediate" :
-              "Advanced";
+    let match = required.filter(skill => userSkills.includes(skill)).length;
+    let missing = required.filter(skill => !userSkills.includes(skill));
 
-  // 🤖 CONFIDENCE SCORE
-  let confidence = Math.min(100, (score + Math.random() * 10)).toFixed(0);
+    let score = (match / required.length) * 100;
 
-  // 📚 COURSE LINKS
-  let suggestions = missing.length
-    ? missing.map(skill => {
-        let link = courses[skill] || "#";
-        return `<a href="${link}" target="_blank">📘 Learn ${skill}</a>`;
-      }).join("<br>")
-    : "🎉 No missing skills! Great job!";
+    let suggestions = missing.map(skill => {
+      let link = courses[skill] || "#";
+      return `<a href="${link}" target="_blank">📘 Learn ${skill}</a>`;
+    }).join("<br>");
 
-  // 🧭 ROADMAP
-  let roadmap = role === "Data Scientist" ? `
-    Month 1-2: Python & Data Analysis<br>
-    Month 3-4: Machine Learning<br>
-    Month 5-6: Projects + Apply
-  ` : `
-    Month 1-2: HTML & CSS<br>
-    Month 3-4: JavaScript & React<br>
-    Month 5-6: Build Portfolio
-  `;
+    document.getElementById("result").innerHTML = `
+      <h3>Match Score: ${score.toFixed(0)}%</h3>
+      <p>Missing Skills: ${missing.join(", ")}</p>
+      <p>${suggestions}</p>
+    `;
 
-  // 💡 AI INSIGHT
-  let insight = score < 40
-    ? "You are at an early stage. Focus on strong fundamentals."
-    : score < 75
-    ? "You are close to job-ready. Improve missing skills."
-    : "You are job-ready! Start applying confidently.";
+    // 📊 Chart
+    if (chart) chart.destroy();
 
-  // 🎯 ROLE RECOMMENDATION
-  let recommendation = score < 40
-    ? "Start with internships or beginner roles."
-    : score < 75
-    ? "Apply for junior roles after improving skills."
-    : "Apply for full-time roles confidently.";
+    let ctx = document.getElementById("chart").getContext("2d");
 
-  // 🚀 CAREER SIMULATION (UNIQUE FEATURE)
-  let simulation = `
-    Based on your current progress, you can become a <strong>${role}</strong> in 
-    <strong>${
-      score < 40 ? "6–8 months" :
-      score < 75 ? "3–6 months" :
-      "1–2 months"
-    }</strong> with consistent effort.
-  `;
+    chart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["Matched", "Missing"],
+        datasets: [{
+          data: [match, missing.length]
+        }]
+      }
+    });
 
-  // 🧾 OUTPUT
-  let resultBox = document.getElementById("result");
-
-  resultBox.innerHTML = `
-    <h3>Match Score: ${score.toFixed(0)}%</h3>
-
-    <div class="progress-bar">
-      <div class="progress" style="width:${score}%"></div>
-    </div>
-
-    <p><strong>Level:</strong> ${level}</p>
-    <p><strong>Confidence Score:</strong> ${confidence}%</p>
-
-    <p><strong>Matched Skills:</strong><br>${matchedSkills.join(", ") || "None"}</p>
-
-    <p><strong>Missing Skills:</strong><br>${missing.join(", ") || "None"}</p>
-
-    <p><strong>📚 Learn These Skills:</strong><br>${suggestions}</p>
-
-    <p><strong>🧭 Career Roadmap:</strong><br>${roadmap}</p>
-
-    <p><strong>💡 AI Insight:</strong><br>${insight}</p>
-
-    <p><strong>🎯 Recommendation:</strong><br>${recommendation}</p>
-
-    <p><strong>🚀 Career Simulation:</strong><br>${simulation}</p>
-  `;
-
-  // 🎨 ANIMATION TRIGGER
-  resultBox.classList.remove("slide-up");
-  void resultBox.offsetWidth; // reset animation
-  resultBox.classList.add("slide-up");
+  }, 1000);
 }
 
-// 🎯 QUIZ FUNCTION (UPGRADED)
+// 📄 Download Report
+function downloadReport() {
+  let content = document.getElementById("result").innerText;
+
+  let blob = new Blob([content], { type: "text/plain" });
+
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "SkillMap_Report.txt";
+  a.click();
+}
+
+// 🎯 Quiz
 function startQuiz() {
+  let answer = prompt("Which language is used for Data Science? (Python / HTML / CSS)");
 
-  let questions = [
-    {
-      q: "Which language is mainly used for Data Science?",
-      options: ["HTML", "Python", "CSS"],
-      answer: "python"
-    },
-    {
-      q: "Which is used for styling web pages?",
-      options: ["CSS", "Python", "SQL"],
-      answer: "css"
-    }
-  ];
+  if (!answer) return;
 
-  let randomQ = questions[Math.floor(Math.random() * questions.length)];
-
-  let userAnswer = prompt(
-    randomQ.q + "\nOptions: " + randomQ.options.join(", ")
-  );
-
-  if (!userAnswer) return;
-
-  if (userAnswer.toLowerCase() === randomQ.answer) {
-    alert("🎉 Correct! You're on the right track!");
+  if (answer.toLowerCase() === "python") {
+    alert("🎉 Correct!");
   } else {
-    alert("❌ Not quite. Keep learning—you’ll get there!");
+    alert("❌ Try again!");
   }
 }
+
+// 🌌 Particles
+particlesJS("particles-js", {
+  particles: {
+    number: { value: 40 },
+    size: { value: 3 },
+    move: { speed: 1 }
+  }
+});
