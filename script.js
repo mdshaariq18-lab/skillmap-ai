@@ -1,14 +1,3 @@
-const courses = {
-  "python": "https://www.coursera.org/learn/python",
-  "sql": "https://www.w3schools.com/sql/",
-  "machine learning": "https://www.coursera.org/learn/machine-learning",
-  "statistics": "https://www.khanacademy.org/math/statistics-probability",
-  "html": "https://www.w3schools.com/html/",
-  "css": "https://www.w3schools.com/css/",
-  "javascript": "https://www.javascript.info/",
-  "react": "https://react.dev/learn"
-};
-
 let chart;
 
 function analyze() {
@@ -20,7 +9,9 @@ function analyze() {
     document.getElementById("loading").classList.add("hidden");
 
     let role = document.getElementById("role").value;
-    let userSkills = document.getElementById("skills").value.toLowerCase().split(",").map(s => s.trim());
+    let skills = document.getElementById("skills").value.toLowerCase().split(",").map(s => s.trim());
+    let exp = parseInt(document.getElementById("experience").value) || 0;
+    let resumeLine = document.getElementById("resumeLine").value;
 
     let roles = {
       "Data Scientist": ["python","sql","machine learning","statistics"],
@@ -29,24 +20,40 @@ function analyze() {
 
     let required = roles[role];
 
-    let match = required.filter(skill => userSkills.includes(skill)).length;
-    let missing = required.filter(skill => !userSkills.includes(skill));
+    let matched = required.filter(s => skills.includes(s));
+    let missing = required.filter(s => !skills.includes(s));
 
-    let score = (match / required.length) * 100;
+    let score = (matched.length / required.length) * 100;
 
-    let suggestions = missing.map(skill => {
-      let link = courses[skill] || "#";
-      return `<a href="${link}" target="_blank">📘 Learn ${skill}</a>`;
-    }).join("<br>");
+    let ats = Math.min(100, score + exp*5);
+
+    let expLevel = exp < 1 ? "Fresher" : exp < 3 ? "Junior" : "Experienced";
+
+    let improved = resumeLine ? resumeLine.replace("worked", "achieved measurable results in") : "Add a resume line";
+
+    let questions = role === "Data Scientist"
+      ? ["What is overfitting?", "Explain regression"]
+      : ["What is DOM?", "Explain closures"];
+
+    let salary = role === "Data Scientist" ? "₹6–15 LPA" : "₹4–12 LPA";
 
     document.getElementById("result").innerHTML = `
       <h3>Match Score: ${score.toFixed(0)}%</h3>
-      <p>Missing Skills: ${missing.join(", ")}</p>
-      <p>${suggestions}</p>
+      <p><b>ATS Score:</b> ${ats}%</p>
+      <p><b>Experience:</b> ${expLevel}</p>
+
+      <p><b>Matched Skills:</b> ${matched.join(", ")}</p>
+      <p><b>Missing Skills:</b> ${missing.join(", ")}</p>
+
+      <p><b>Improved Resume:</b><br>${improved}</p>
+
+      <p><b>Interview Questions:</b><br>${questions.join("<br>")}</p>
+
+      <p><b>Estimated Salary:</b> ${salary}</p>
     `;
 
-    // 📊 Chart
-    if (chart) chart.destroy();
+    // Chart
+    if(chart) chart.destroy();
 
     let ctx = document.getElementById("chart").getContext("2d");
 
@@ -55,7 +62,7 @@ function analyze() {
       data: {
         labels: ["Matched", "Missing"],
         datasets: [{
-          data: [match, missing.length]
+          data: [matched.length, missing.length]
         }]
       }
     });
@@ -63,36 +70,22 @@ function analyze() {
   }, 1000);
 }
 
-// 📄 Download Report
+function startQuiz() {
+  let ans = prompt("Language for Data Science?");
+  if(ans && ans.toLowerCase()=="python") alert("Correct!");
+  else alert("Try again!");
+}
+
 function downloadReport() {
-  let content = document.getElementById("result").innerText;
-
-  let blob = new Blob([content], { type: "text/plain" });
-
+  let text = document.getElementById("result").innerText;
+  let blob = new Blob([text], {type:"text/plain"});
   let a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "SkillMap_Report.txt";
+  a.download = "report.txt";
   a.click();
 }
 
-// 🎯 Quiz
-function startQuiz() {
-  let answer = prompt("Which language is used for Data Science? (Python / HTML / CSS)");
-
-  if (!answer) return;
-
-  if (answer.toLowerCase() === "python") {
-    alert("🎉 Correct!");
-  } else {
-    alert("❌ Try again!");
-  }
-}
-
-// 🌌 Particles
+// particles
 particlesJS("particles-js", {
-  particles: {
-    number: { value: 40 },
-    size: { value: 3 },
-    move: { speed: 1 }
-  }
+  particles: { number:{value:40}, size:{value:3} }
 });
