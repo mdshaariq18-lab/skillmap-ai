@@ -29,7 +29,9 @@ function analyze() {
 
     let expLevel = exp < 1 ? "Fresher" : exp < 3 ? "Junior" : "Experienced";
 
-    let improved = resumeLine ? resumeLine.replace("worked", "achieved measurable results in") : "Add a resume line";
+    let improved = resumeLine 
+      ? resumeLine.replace(/worked/i, "achieved measurable results in") 
+      : "Add a resume line";
 
     let questions = role === "Data Scientist"
       ? ["What is overfitting?", "Explain regression"]
@@ -41,18 +43,13 @@ function analyze() {
       <h3>Match Score: ${score.toFixed(0)}%</h3>
       <p><b>ATS Score:</b> ${ats}%</p>
       <p><b>Experience:</b> ${expLevel}</p>
-
       <p><b>Matched Skills:</b> ${matched.join(", ")}</p>
       <p><b>Missing Skills:</b> ${missing.join(", ")}</p>
-
       <p><b>Improved Resume:</b><br>${improved}</p>
-
       <p><b>Interview Questions:</b><br>${questions.join("<br>")}</p>
-
       <p><b>Estimated Salary:</b> ${salary}</p>
     `;
 
-    // Chart
     if(chart) chart.destroy();
 
     let ctx = document.getElementById("chart").getContext("2d");
@@ -83,6 +80,29 @@ function downloadReport() {
   a.href = URL.createObjectURL(blob);
   a.download = "report.txt";
   a.click();
+}
+
+// 🤖 Chatbot
+function sendMessage() {
+  let input = document.getElementById("chat-input");
+  let msg = input.value.toLowerCase();
+  if(!msg) return;
+
+  let chat = document.getElementById("chat-body");
+
+  chat.innerHTML += `<div><b>You:</b> ${msg}</div>`;
+
+  let reply = "I can help with careers and skills!";
+
+  if(msg.includes("data")) reply="Learn Python, ML, SQL.";
+  else if(msg.includes("web")) reply="Learn HTML, CSS, JS.";
+  else if(msg.includes("resume")) reply="Use action verbs and numbers.";
+  else if(msg.includes("salary")) reply="₹4–15 LPA depending on role.";
+
+  chat.innerHTML += `<div><b>AI:</b> ${reply}</div>`;
+
+  input.value="";
+  chat.scrollTop=chat.scrollHeight;
 }
 
 // particles
