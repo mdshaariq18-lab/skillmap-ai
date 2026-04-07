@@ -5,20 +5,21 @@ body {
   text-align: center;
   padding: 40px;
   margin: 0;
+  transition: background 0.5s, color 0.5s;
 }
 
 .container {
   background: rgba(255, 255, 255, 0.1);
   padding: 30px;
   border-radius: 15px;
-  width: 380px;
+  width: 420px;
   margin: auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   backdrop-filter: blur(10px);
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 32px;
 }
 
 p {
@@ -53,6 +54,10 @@ button:nth-of-type(2) {
   background: linear-gradient(90deg, #ff7e5f, #feb47b);
 }
 
+button:nth-of-type(3) {
+  background: linear-gradient(90deg, #43cea2, #185a9d);
+}
+
 #result {
   margin-top: 20px;
   text-align: left;
@@ -74,4 +79,14 @@ button:nth-of-type(2) {
   height: 100%;
   background: linear-gradient(90deg, #00c6ff, #0072ff);
   border-radius: 10px;
+}
+
+/* Light Theme */
+body.light {
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  color: #333;
+}
+
+body.light .container {
+  background: rgba(0,0,0,0.05);
 }
