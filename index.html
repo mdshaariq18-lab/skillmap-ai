@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SkillMap AI</title>
+  <meta charset="UTF-8">
+  <title>SkillMap AI 🚀</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animations.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<div class="container">
-
+<div class="container fade-in">
+  <img src="logo.png" alt="SkillMap AI Logo" style="width:80px; margin-bottom:10px;">
   <h1>🔷 SkillMap AI</h1>
   <p>From Resume to Roadmap 🚀</p>
 
@@ -22,12 +25,14 @@
 
   <button onclick="analyze()">Analyze</button>
   <button onclick="startQuiz()">Take Quick Quiz 🎯</button>
+  <button onclick="toggleTheme()">Toggle Theme 🌗</button>
 
   <div id="result"></div>
-
+  <div id="insightBox"></div>
+  <canvas id="skillChart"></canvas>
 </div>
 
 <script src="script.js"></script>
-
+<script src="insights.js"></script>
 </body>
 </html>
