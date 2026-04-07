@@ -4,6 +4,7 @@ body {
   color: white;
   text-align: center;
   padding: 40px;
+  margin: 0;
 }
 
 .container {
@@ -31,6 +32,7 @@ button {
   border: none;
   background: linear-gradient(90deg, #00c6ff, #0072ff);
   color: white;
+  cursor: pointer;
 }
 
 #result {
@@ -54,3 +56,32 @@ button {
 }
 
 canvas { margin-top:20px; }
+
+/* 🤖 Chatbot */
+#chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 260px;
+  background: rgba(0,0,0,0.85);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+#chat-body {
+  height: 150px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+#chat-input {
+  width: 70%;
+  padding: 5px;
+}
+
+#chatbot button {
+  width: 25%;
+  padding: 5px;
+}
